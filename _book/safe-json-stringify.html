@@ -1,0 +1,371 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>safe-json-stringify · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="safe-json-stringify.html">
+            
+                <a href="safe-json-stringify.html">
+            
+                    
+                    safe-json-stringify
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >safe-json-stringify</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5305;&#x5730;&#x5740;">&#x5305;&#x5730;&#x5740;</h1>
+<p><a href="https://www.npmjs.com/package/safe-json-stringify" target="_blank">https://www.npmjs.com/package/safe-json-stringify</a></p>
+<p><a href="https://github.com/debitoor/safe-json-stringify" target="_blank">https://github.com/debitoor/safe-json-stringify</a></p>
+<h1 id="&#x5305;&#x4F5C;&#x7528;">&#x5305;&#x4F5C;&#x7528;</h1>
+<p>&#x8865;&#x5145; JSON.stringify &#x4E0D;&#x8DB3;</p>
+<h1 id="jsonstringify-&#x4F7F;&#x7528;&#x4ECB;&#x7ECD;">JSON.stringify &#x4F7F;&#x7528;&#x4ECB;&#x7ECD;</h1>
+<h3 id="mdn-&#x6587;&#x6863;&#x5173;&#x4E8E;-jsonstringify"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior" target="_blank">MDN &#x6587;&#x6863;&#x5173;&#x4E8E; JSON.stringify</a></h3>
+<h3 id="jsonstringify-&#x95EE;&#x9898;">JSON.stringify &#x95EE;&#x9898;</h3>
+<pre><code>var obj = {
+    name:&quot;A&quot;,
+    toJSON:()=&gt;{
+        throw new Error(&apos;Failing&apos;);
+    }
+};
+
+JSON.stringify(obj); // error thrown
+</code></pre><pre><code>var obj = {};
+obj.__defineGetter__(&apos;foo&apos;, function() { throw new Error(&apos;ouch!&apos;); });
+
+JSON.stringify(obj); // error thrown
+</code></pre><pre><code>var obj = {
+    name: &quot;A&quot;
+};
+
+const createObj = () =&gt; {
+    obj[&quot;obj&quot;] = obj
+    return obj
+}
+
+JSON.stringify(createObj()) // error thrown
+</code></pre><h3 id="safe-json-stringify-&#x89E3;&#x51B3;&#x95EE;&#x9898;">safe-json-stringify &#x89E3;&#x51B3;&#x95EE;&#x9898;</h3>
+<pre><code>const safeStringify = require(&quot;safe-json-stringify&quot;)
+var obj = {
+    name:&quot;A&quot;,
+    toJSON:()=&gt;{
+        throw new Error(&apos;Failing&apos;);
+    }
+};
+console.log(safeStringify(obj)); // &quot;[Throws: Failing]&quot;
+</code></pre><pre><code>const safeStringify = require(&quot;safe-json-stringify&quot;)
+var obj = {};
+obj.__defineGetter__(&apos;foo&apos;, function () { throw new Error(&apos;ouch!&apos;); });
+
+console.log(safeStringify(obj)); // {&quot;foo&quot;:&quot;[Throws: ouch!]&quot;}
+</code></pre><pre><code>var obj = {
+    name: &quot;A&quot;
+};
+
+const createObj = () =&gt; {
+    obj[&quot;obj&quot;] = obj
+    return obj
+}
+
+safeStringify(obj); // {&quot;name&quot;:&quot;A&quot;,&quot;obj&quot;:&quot;[Circular]&quot;}
+</code></pre><h1 id="safe-json-stringify-&#x4EE3;&#x7801;&#x9605;&#x8BFB;">safe-json-stringify &#x4EE3;&#x7801;&#x9605;&#x8BFB;</h1>
+<pre><code>// &#x5F15;&#x5165;Object&#x5224;&#x65AD;&#x81EA;&#x8EAB;Property&#x65B9;&#x6CD5;
+var hasProp = Object.prototype.hasOwnProperty;
+
+// &#x5904;&#x7406;Error Thrown
+function throwsMessage(err) {
+    return &apos;[Throws: &apos; + (err ? err.message : &apos;?&apos;) + &apos;]&apos;;
+}
+// &#x83B7;&#x53D6;&#x5C5E;&#x6027;&#x503C;
+function safeGetValueFromPropertyOnObject(obj, property) {
+    // &#x5148;&#x8C03;&#x7528;&#x6293;&#x51FA; error thrown
+    if (hasProp.call(obj, property)) {
+        try {
+            return obj[property];
+        }
+        catch (err) {
+            return throwsMessage(err);
+        }
+    }
+
+    return obj[property];
+}
+// &#x5E8F;&#x5217;&#x5316;&#x4E3B;&#x65B9;&#x6CD5;
+function ensureProperties(obj) {
+    // &#x7528;&#x6765;&#x8BB0;&#x5F55;&#x9012;&#x5F52;&#x4E2D;&#x5BF9;&#x8C61;
+    var seen = [ ]; // store references to objects we have seen before
+
+    // &#x4FBF;&#x4E8E;&#x9012;&#x5F52;&#x5E8F;&#x5217;&#x5316;
+    function visit(obj) {
+        // &#x9012;&#x5F52;&#x5230;&#x5E95;&#x5904;&#x7406;
+        if (obj === null || typeof obj !== &apos;object&apos;) {
+            return obj;
+        }
+        // &#x5224;&#x65AD;&#x9012;&#x5F52;&#x5E94;&#x7528;
+        if (seen.indexOf(obj) !== -1) {
+            return &apos;[Circular]&apos;;
+        }
+        // &#x52A0;&#x6808;&#x76D1;&#x5BDF;
+        seen.push(obj);
+
+
+        if (typeof obj.toJSON === &apos;function&apos;) {
+            try {
+                var fResult = visit(obj.toJSON());
+                seen.pop();
+                return fResult;
+            } catch(err) {
+                return throwsMessage(err);
+            }
+        }
+
+        if (Array.isArray(obj)) {
+            var aResult = obj.map(visit);
+            seen.pop();
+            return aResult;
+        }
+
+        var result = Object.keys(obj).reduce(function(result, prop) {
+            // prevent faulty defined getter properties
+            result[prop] = visit(safeGetValueFromPropertyOnObject(obj, prop));
+            return result;
+        }, {});
+
+        // &#x51FA;&#x6808;
+        seen.pop();
+        return result;
+    };
+
+    return visit(obj);
+}
+
+// &#x517C;&#x5BB9;JSON.stringify&#x5E8F;&#x5217;&#x5316;
+module.exports = function(data, replacer, space) {
+    return JSON.stringify(ensureProperties(data), replacer, space);
+}
+// &#x5355;&#x7EAF;&#x5E8F;&#x5217;&#x5316;
+module.exports.ensureProperties = ensureProperties;
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"safe-json-stringify","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"safe-json-stringify.md","mtime":"2020-09-09T09:41:37.015Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-09T08:33:01.845Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
