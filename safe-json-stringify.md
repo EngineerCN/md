@@ -16,7 +16,7 @@ https://github.com/debitoor/safe-json-stringify
 
 填补 JSON.stringify 不足
 
-# JSON.stringify 使用介绍
+## JSON.stringify 使用介绍
 
 ### [MDN 文档关于 JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
 
