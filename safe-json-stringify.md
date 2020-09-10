@@ -1,18 +1,22 @@
+# safe-json-stringify
+
 > 分享者 : KEN
+>
 > 日期:2020/9/12
+>
 > 邮箱 : 919125189@qq.com
 
-# 包地址
+## 包地址
 
 https://www.npmjs.com/package/safe-json-stringify
 
 https://github.com/debitoor/safe-json-stringify
 
-# 包作用
+## 包作用
 
 填补 JSON.stringify 不足
 
-# JSON.stringify 使用介绍
+## JSON.stringify 使用介绍
 
 ### [MDN 文档关于 JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
 
@@ -84,7 +88,7 @@ const createObj = () => {
 safeStringify(obj); // {"name":"A","obj":"[Circular]"}
 ```
 
-# safe-json-stringify 代码阅读
+## safe-json-stringify 代码阅读
 
 ```
 // 引入Object判断自身Property方法
