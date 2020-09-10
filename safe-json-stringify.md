@@ -6,7 +6,7 @@ https://github.com/debitoor/safe-json-stringify
 
 # 包作用
 
-补充 JSON.stringify 不足
+填补 JSON.stringify 不足
 
 # JSON.stringify 使用介绍
 
@@ -115,12 +115,12 @@ function ensureProperties(obj) {
 		if (obj === null || typeof obj !== 'object') {
 			return obj;
 		}
-        // 判断递归应用
 		if (seen.indexOf(obj) !== -1) {
 			return '[Circular]';
 		}
-        // 加栈监察
-		seen.push(obj);
+
+		// 递归没有到底处理
+		seen.push(obj);      // 入栈
 
 
 		if (typeof obj.toJSON === 'function') {
@@ -144,9 +144,7 @@ function ensureProperties(obj) {
 			result[prop] = visit(safeGetValueFromPropertyOnObject(obj, prop));
 			return result;
 		}, {});
-
-        // 出栈
-		seen.pop();
+		seen.pop();          // 出栈
 		return result;
 	};
 
