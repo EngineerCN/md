@@ -1,3 +1,7 @@
+> 分享者 : KEN
+> 日期:2020/9/12
+> 邮箱 : 919125189@qq.com
+
 # 包地址
 
 https://www.npmjs.com/package/safe-json-stringify
